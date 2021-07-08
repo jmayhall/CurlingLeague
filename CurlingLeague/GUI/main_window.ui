@@ -32,27 +32,14 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QListView" name="leagues_listview">
-            <property name="minimumSize">
-             <size>
-              <width>400</width>
-              <height>0</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
-             <widget class="QPushButton" name="load_database_button">
+             <widget class="QListWidget" name="leagues_listwidget">
               <property name="minimumSize">
                <size>
-                <width>150</width>
+                <width>600</width>
                 <height>0</height>
                </size>
-              </property>
-              <property name="text">
-               <string>&amp;Load Database</string>
               </property>
              </widget>
             </item>
@@ -66,6 +53,19 @@
               </property>
               <property name="text">
                <string>&amp;Save Database</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="load_database_button">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>&amp;Load Database</string>
               </property>
              </widget>
             </item>
@@ -180,7 +180,6 @@
   <tabstop>edit_league_button</tabstop>
   <tabstop>add_league_button</tabstop>
   <tabstop>new_league_lineedit</tabstop>
-  <tabstop>leagues_listview</tabstop>
  </tabstops>
  <resources/>
  <connections/>
