@@ -22,7 +22,7 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         pass
 
     def save_button_clicked(self):
-        print("Saved!")
+        pass
 
     def add_league_clicked(self):
         self.db.add_league(self.new_league_lineedit.text(), self.db.next_oid)
