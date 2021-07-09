@@ -38,7 +38,9 @@ class League(IdentifiedObject):
                 raise DuplicateOid(team.oid)
         except DuplicateOid as ex:
             raise DuplicateOid(ex.oid)
-            #print(f"Duplicate Team ID: {team.oid}")
+
+    def delete_team(self, ndx):
+        self._teams.__delitem__(ndx)
 
     def add_competition(self, competition):
         try:

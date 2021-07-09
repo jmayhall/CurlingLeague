@@ -2,6 +2,7 @@ from CurlingLeague.identifiedobject import IdentifiedObject
 from CurlingLeague.exceptions import DuplicateEmail
 from CurlingLeague.exceptions import DuplicateOid
 
+
 class Team(IdentifiedObject):
     """Team Object Class
     Defines the Team Object with properties:
@@ -39,20 +40,20 @@ class Team(IdentifiedObject):
             else:
                 raise DuplicateEmail(member.email)
         except DuplicateEmail as ex:
-            #print(f"Duplicate Email address: {member.email}")
             raise DuplicateEmail(ex.email)
-
         try:
             if member.oid not in [x.oid for x in self._members]:
                 oid_valid = True
             else:
                 raise DuplicateOid(member.oid)
         except DuplicateOid as ex:
-            #print(f"Duplicate Member ID: {member.oid}")
             raise DuplicateOid(ex.oid)
 
         if email_valid and oid_valid:
             self.members.append(member)
+
+    def delete_member(self, ndx):
+        self._members.__delitem__(ndx)
 
     def remove_member(self, member):
         if member in self.members:
