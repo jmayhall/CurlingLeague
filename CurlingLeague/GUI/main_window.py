@@ -2,6 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QMessageBox, QFileDialog, QInputDialog
 
+from CurlingLeague.league import League
 from CurlingLeague.league_database import LeagueDatabase
 from PyQt5 import uic, QtWidgets
 
@@ -25,20 +26,42 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
     def update_ui(self):
         self.leagues_listwidget.clear()
         for l in self.db.leagues:
-            self.leagues_listwidget.addItem(l)
+            self.leagues_listwidget.addItem(str(l))
 
     def load_button_clicked(self):
-        file = QFileDialog().exec()
+        fileName = QFileDialog.getOpenFileName(self,
+                                               ("Open Database"), "../",
+                                               ("Database Files (*.dbf)"));
+
+        file = fileName[0]
         if file:
             self.db.load(file)
+            self.db = LeagueDatabase.instance()
         self.update_ui()
 
     def save_button_clicked(self):
-        pass
+        fileName = QFileDialog.getOpenFileName(self,
+                                               ("Select Database"), "../",
+                                               ("Database Files (*.dbf)"));
+
+        file = fileName[0]
+        if file:
+            self.db.save(file)
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Save Confirmation",
+                                 "League database has been saved!",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
+        self.update_ui()
+
+
 
     def add_league_clicked(self):
-        self.db.add_league(self.new_league_lineedit.text(), self.db.next_oid)
+        league_name = self.new_league_lineedit.text()
+        leag = League(self.db.next_oid(), league_name)
+        self.db.add_league(leag)
         self.update_ui()
+        self.new_league_lineedit.clear()
 
     def edit_league_clicked(self):
         pass
@@ -53,10 +76,16 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
             print("Approved")
 
     def import_league_clicked(self):
-        dialog = QInputDialog()
-        result = dialog.exec()
-        file = QFileDialog().exec()
-        self.db.import_league(result, file)
+        league_name = self.import_league_lineedit.text()
+        if league_name != "":
+            fileName = QFileDialog.getOpenFileName(self,
+                                                    ("Open League File"), "../",
+                                                    ("Teams Files (*.csv *.txt)"));
+
+            file = fileName[0]
+            self.db.import_league(league_name, file)
+            self.update_ui()
+            self.import_league_lineedit.clear()
 
     def export_league_clicked(self):
         pass
