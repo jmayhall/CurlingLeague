@@ -13,7 +13,6 @@ class League(IdentifiedObject):
         return self._name + ": " + str(len(self._teams)) + " teams, " \
                + str(len(self._competitions)) + " competitions"
 
-
     @property
     def name(self):
         return self._name

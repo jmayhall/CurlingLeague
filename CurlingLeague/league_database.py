@@ -59,6 +59,9 @@ class LeagueDatabase:
             # raise DuplicateOid(ex.oid)
             print(f"Duplicate League ID: {league.oid}")
 
+    def delete_league(self, ndx):
+        self._leagues.__delitem__(ndx)
+
     def next_oid(self):
         self._last_oid += 1
         return self._last_oid

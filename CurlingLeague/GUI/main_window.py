@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMessageBox, QFileDialog, QInputDialog
 
 from CurlingLeague.league import League
 from CurlingLeague.league_database import LeagueDatabase
+
 from PyQt5 import uic, QtWidgets
 
 UI_MainWindow, QtBaseWindow = uic.loadUiType("main_window.ui")
@@ -29,22 +30,22 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
             self.leagues_listwidget.addItem(str(l))
 
     def load_button_clicked(self):
-        fileName = QFileDialog.getOpenFileName(self,
-                                               ("Open Database"), "../",
-                                               ("Database Files (*.dbf)"));
+        filename = QFileDialog.getOpenFileName(self,
+                                               "Open Database", "../",
+                                               "Database Files (*.dbf)");
 
-        file = fileName[0]
+        file = filename[0]
         if file:
             self.db.load(file)
             self.db = LeagueDatabase.instance()
         self.update_ui()
 
     def save_button_clicked(self):
-        fileName = QFileDialog.getOpenFileName(self,
-                                               ("Select Database"), "../",
-                                               ("Database Files (*.dbf)"));
+        filename = QFileDialog.getSaveFileName(self,
+                                               "Select Database", "../",
+                                               "Database Files (*.dbf)")
 
-        file = fileName[0]
+        file = filename[0]
         if file:
             self.db.save(file)
             dialog = QMessageBox(QMessageBox.Icon.Information,
@@ -53,8 +54,6 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
                                  QMessageBox.StandardButton.Ok)
             result = dialog.exec()
         self.update_ui()
-
-
 
     def add_league_clicked(self):
         league_name = self.new_league_lineedit.text()
@@ -67,28 +66,43 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         pass
 
     def delete_league_clicked(self):
+        row = self.leagues_listwidget.currentRow()
+        leag = self.db.leagues[row].name
         dialog = QMessageBox(QMessageBox.Icon.Information,
                              "Confirm Delete",
-                             "The selected league will be deleted!",
+                             f"The league \"{leag}\" will be deleted!",
                              QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
         result = dialog.exec()
         if result == QMessageBox.StandardButton.Ok:
-            print("Approved")
+            self.db.delete_league(row)
+            self.update_ui()
 
     def import_league_clicked(self):
         league_name = self.import_league_lineedit.text()
         if league_name != "":
-            fileName = QFileDialog.getOpenFileName(self,
-                                                    ("Open League File"), "../",
-                                                    ("Teams Files (*.csv *.txt)"));
+            filename = QFileDialog.getOpenFileName(self,
+                                                   "Open League File", "../",
+                                                   "League Files (*.csv *.txt)")
 
-            file = fileName[0]
+            file = filename[0]
             self.db.import_league(league_name, file)
             self.update_ui()
             self.import_league_lineedit.clear()
 
     def export_league_clicked(self):
-        pass
+        row = self.leagues_listwidget.currentRow()
+        leag = self.db.leagues[row]
+        filename = QFileDialog.getSaveFileName(self,
+                                               "Select League File", "../",
+                                               "League Files (*.csv *.txt)")
+        if filename != "":
+            file = filename[0]
+            self.db.export_league(leag, file)
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Save Confirmation",
+                                 "League has been exported!",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
 
 
 if __name__ == '__main__':
