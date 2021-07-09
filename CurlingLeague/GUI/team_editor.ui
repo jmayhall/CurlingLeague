@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>league_editor</class>
- <widget class="QDialog" name="league_editor">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>632</width>
-    <height>259</height>
+    <width>732</width>
+    <height>266</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>League Editor</string>
+   <string>Team Editor</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
@@ -21,14 +21,14 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Teams:</string>
+          <string>Team Members:</string>
          </property>
         </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QListWidget" name="teams_listwidget">
+          <widget class="QListWidget" name="member_listwidget">
            <property name="minimumSize">
             <size>
              <width>400</width>
@@ -40,54 +40,67 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QPushButton" name="delete_team_button">
+            <widget class="QPushButton" name="delete_member_button">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>300</width>
                <height>0</height>
               </size>
              </property>
              <property name="text">
-              <string>Delete Team</string>
+              <string>Delete Member</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="edit_team_button">
+            <widget class="QPushButton" name="edit_member_button">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>300</width>
                <height>0</height>
               </size>
              </property>
              <property name="text">
-              <string>Edit Team</string>
+              <string>Edit Member</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="add_team_button">
+            <widget class="QPushButton" name="add_member_button">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>300</width>
                <height>0</height>
               </size>
              </property>
              <property name="text">
-              <string>Add Team</string>
+              <string>Add Member</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="add_team_lineedit">
+            <widget class="QLineEdit" name="member_name_lineedit">
              <property name="minimumSize">
               <size>
-               <width>200</width>
+               <width>300</width>
                <height>0</height>
               </size>
              </property>
              <property name="placeholderText">
-              <string>Enter Team Name</string>
+              <string>Edit/Add Member Name</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="member_email_lineedit">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Edit/Add Member Email</string>
              </property>
             </widget>
            </item>
@@ -112,11 +125,17 @@
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
         <set>QDialogButtonBox::Close</set>
+       </property>
+       <property name="centerButtons">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -129,7 +148,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>league_editor</receiver>
+   <receiver>Dialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -145,7 +164,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>league_editor</receiver>
+   <receiver>Dialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

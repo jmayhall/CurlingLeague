@@ -2,28 +2,49 @@ import sys
 
 from PyQt5.QtWidgets import QMessageBox, QFileDialog, QInputDialog
 
+from CurlingLeague.GUI.team_editor import TeamEditor
 from CurlingLeague.league import League
 
 from PyQt5 import uic, QtWidgets
+
+from CurlingLeague.team import Team
 
 UI_MainWindow, QtBaseWindow = uic.loadUiType("league_editor.ui")
 
 
 class LeagueEditor(QtBaseWindow, UI_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, league=None, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.db = LeagueDatabase.instance()
-        self.update_ui()
-        self.load_database_button.clicked.connect(self.load_button_clicked)
-        self.save_database_button.clicked.connect(self.save_button_clicked)
-        self.add_league_button.clicked.connect(self.add_league_clicked)
-        self.edit_league_button.clicked.connect(self.edit_league_clicked)
-        self.delete_league_button.clicked.connect(self.delete_league_clicked)
-        self.import_league_button.clicked.connect(self.import_league_clicked)
-        self.export_league_button.clicked.connect(self.export_league_clicked)
+        if league:
+            self.league = league
+            self.teams = self.league.teams
+            self.update_ui()
+            self.add_team_button.clicked.connect(self.add_team_clicked)
+            self.edit_team_button.clicked.connect(self.edit_team_clicked)
+            self.delete_team_button.clicked.connect(self.delete_team_clicked)
 
     def update_ui(self):
-        self.leagues_listwidget.clear()
-        for l in self.db.leagues:
-            self.leagues_listwidget.addItem(str(l))
+        self.teams_listwidget.clear()
+        for t in self.teams:
+            self.teams_listwidget.addItem(str(t))
+
+    def add_team_clicked(self):
+        self.league.add_team(self.db.next_oid(), self.add_team_lineedit.text())
+        self.update_ui()
+        self.add_team_lineedit.clear()
+
+    def edit_team_clicked(self):
+        row = self.teams_listwidget.currentRow()
+        team = self.teams[row]
+        dialog = TeamEditor(team)
+        result = dialog.exec()
+
+    def delete_team_clicked(self):
+        pass
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    window = LeagueEditor(League(1200,"smashers"))
+    window.show()
+    sys.exit(app.exec_())

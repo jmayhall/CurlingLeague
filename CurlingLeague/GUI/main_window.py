@@ -2,6 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QMessageBox, QFileDialog, QInputDialog
 
+from CurlingLeague.GUI.league_editor import LeagueEditor
 from CurlingLeague.league import League
 from CurlingLeague.league_database import LeagueDatabase
 
@@ -63,7 +64,10 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         self.new_league_lineedit.clear()
 
     def edit_league_clicked(self):
-        pass
+        row = self.leagues_listwidget.currentRow()
+        leag = self.db.leagues[row]
+        dialog = LeagueEditor(leag)
+        result = dialog.exec()
 
     def delete_league_clicked(self):
         row = self.leagues_listwidget.currentRow()
