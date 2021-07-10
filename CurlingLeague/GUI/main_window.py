@@ -62,12 +62,16 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         self.db.add_league(leag)
         self.update_ui()
         self.new_league_lineedit.clear()
+        dialog = LeagueEditor(leag)
+        result = dialog.exec()
+        self.update_ui()
 
     def edit_league_clicked(self):
         row = self.leagues_listwidget.currentRow()
         leag = self.db.leagues[row]
         dialog = LeagueEditor(leag)
         result = dialog.exec()
+        self.update_ui()
 
     def delete_league_clicked(self):
         row = self.leagues_listwidget.currentRow()
