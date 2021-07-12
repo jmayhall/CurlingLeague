@@ -1,3 +1,8 @@
+###Author
+
+Jeff Mayhall - Auburn University
+July 11, 2021
+
 ### Features
 
 - Supports loading and saving a database file to local storage
@@ -9,9 +14,6 @@ A simple graphical interface for managing a Curling League Database that allows 
 **Running the application** 
 
 The application is accessed by running 'main_window.py'.  The GUI will launch and all windows and features are accessible from this main window.
-###Author
-Jeff Mayhall - Auburn University
-July 11, 2021
 
 **Source Code**
 [Github Project - CurlingLeague](https://github.com/jmayhall/CurlingLeague)
