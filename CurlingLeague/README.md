@@ -18,7 +18,7 @@ July 11, 2021
 **File Formats**
 - CSV files must be comma deliminated and UTF-8 format
 
-**Required Pyton Packages**
+**Required Python Packages**
 - yagmail
 - PyQt5
 - pyqt5_tools
