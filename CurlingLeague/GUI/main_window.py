@@ -32,7 +32,7 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
 
     def load_button_clicked(self):
         filename = QFileDialog.getOpenFileName(self,
-                                               "Open Database", "../",
+                                               "Open Database", "../Data",
                                                "Database Files (*.dbf)");
 
         file = filename[0]
@@ -43,7 +43,7 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
 
     def save_button_clicked(self):
         filename = QFileDialog.getSaveFileName(self,
-                                               "Select Database", "../",
+                                               "Select Database", "../Data",
                                                "Database Files (*.dbf)")
 
         file = filename[0]
@@ -57,14 +57,21 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         self.update_ui()
 
     def add_league_clicked(self):
-        league_name = self.new_league_lineedit.text()
-        leag = League(self.db.next_oid(), league_name)
-        self.db.add_league(leag)
-        self.update_ui()
-        self.new_league_lineedit.clear()
-        dialog = LeagueEditor(leag)
-        result = dialog.exec()
-        self.update_ui()
+        if self.new_league_lineedit.text() != "":
+            league_name = self.new_league_lineedit.text()
+            leag = League(self.db.next_oid(), league_name)
+            self.db.add_league(leag)
+            self.update_ui()
+            self.new_league_lineedit.clear()
+            dialog = LeagueEditor(leag)
+            result = dialog.exec()
+            self.update_ui()
+        else:
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Missing Name",
+                                 "Please enter a league name",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
 
     def edit_league_clicked(self):
         row = self.leagues_listwidget.currentRow()
@@ -89,19 +96,25 @@ class MainWindow(QtBaseWindow, UI_MainWindow):
         league_name = self.import_league_lineedit.text()
         if league_name != "":
             filename = QFileDialog.getOpenFileName(self,
-                                                   "Open League File", "../",
+                                                   "Open League File", "../Data",
                                                    "League Files (*.csv *.txt)")
 
             file = filename[0]
             self.db.import_league(league_name, file)
             self.update_ui()
             self.import_league_lineedit.clear()
+        else:
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Missing Name",
+                                 "Please enter a league name",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
 
     def export_league_clicked(self):
         row = self.leagues_listwidget.currentRow()
         leag = self.db.leagues[row]
         filename = QFileDialog.getSaveFileName(self,
-                                               "Select League File", "../",
+                                               "Select League File", "../Data",
                                                "League Files (*.csv *.txt)")
         if filename != "":
             file = filename[0]

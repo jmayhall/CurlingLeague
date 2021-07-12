@@ -51,6 +51,7 @@ class League(IdentifiedObject):
         except DuplicateOid as ex:
             #print(f"Duplicate Competition ID: {competition.oid}")
             raise DuplicateOid(ex.oid)
+
     def teams_for_member(self, member):
         return [team for team in self.teams if member in team.members]
 

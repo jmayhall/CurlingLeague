@@ -162,6 +162,9 @@
               <property name="text">
                <string>&amp;Load Database</string>
               </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -200,17 +203,66 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
-  <tabstop>load_database_button</tabstop>
-  <tabstop>save_database_button</tabstop>
+  <tabstop>leagues_listwidget</tabstop>
   <tabstop>delete_league_button</tabstop>
   <tabstop>edit_league_button</tabstop>
   <tabstop>add_league_button</tabstop>
   <tabstop>new_league_lineedit</tabstop>
+  <tabstop>export_league_button</tabstop>
   <tabstop>import_league_button</tabstop>
   <tabstop>import_league_lineedit</tabstop>
-  <tabstop>export_league_button</tabstop>
-  <tabstop>leagues_listwidget</tabstop>
+  <tabstop>load_database_button</tabstop>
+  <tabstop>save_database_button</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>new_league_lineedit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>add_league_button</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>719</x>
+     <y>144</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>719</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>import_league_lineedit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>import_league_button</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>789</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>786</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leagues_listwidget</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>edit_league_button</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>145</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

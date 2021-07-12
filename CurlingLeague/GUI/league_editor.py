@@ -25,6 +25,7 @@ class LeagueEditor(QtBaseWindow, UI_MainWindow):
             self.add_team_button.clicked.connect(self.add_team_clicked)
             self.edit_team_button.clicked.connect(self.edit_team_clicked)
             self.delete_team_button.clicked.connect(self.delete_team_clicked)
+            self.name_label.setText(self.league.name)
 
     def update_ui(self):
         self.teams_listwidget.clear()
@@ -32,13 +33,20 @@ class LeagueEditor(QtBaseWindow, UI_MainWindow):
             self.teams_listwidget.addItem(str(t))
 
     def add_team_clicked(self):
-        team = Team(self.db.next_oid(), self.add_team_lineedit.text())
-        self.league.add_team(team)
-        self.update_ui()
-        self.add_team_lineedit.clear()
-        dialog = TeamEditor(team)
-        result = dialog.exec()
-        self.update_ui()
+        if self.add_team_lineedit.text() != "":
+            team = Team(self.db.next_oid(), self.add_team_lineedit.text())
+            self.league.add_team(team)
+            self.update_ui()
+            self.add_team_lineedit.clear()
+            dialog = TeamEditor(team)
+            result = dialog.exec()
+            self.update_ui()
+        else:
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Missing Name",
+                                 "Please enter a team name",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
 
     def edit_team_clicked(self):
         row = self.teams_listwidget.currentRow()
@@ -59,8 +67,9 @@ class LeagueEditor(QtBaseWindow, UI_MainWindow):
             self.league.delete_team(row)
             self.update_ui()
 
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    window = LeagueEditor(League(1200,"smashers"))
+    window = LeagueEditor(League(1200, "smashers"))
     window.show()
     sys.exit(app.exec_())

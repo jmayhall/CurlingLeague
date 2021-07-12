@@ -25,6 +25,7 @@ class TeamEditor(QtBaseWindow, UI_MainWindow):
             self.add_member_button.clicked.connect(self.add_member_clicked)
             self.edit_member_button.clicked.connect(self.edit_member_clicked)
             self.delete_member_button.clicked.connect(self.delete_member_clicked)
+            self.name_label.setText(self.team.name)
 
     def update_ui(self):
         self.member_listwidget.clear()
@@ -38,18 +39,19 @@ class TeamEditor(QtBaseWindow, UI_MainWindow):
             self.update_ui()
             self.member_name_lineedit.clear()
             self.member_email_lineedit.clear()
+        else:
+            dialog = QMessageBox(QMessageBox.Icon.Information,
+                                 "Missing Information",
+                                 "Please enter a name and email address",
+                                 QMessageBox.StandardButton.Ok)
+            result = dialog.exec()
 
     def edit_member_clicked(self):
-        # if self.member_name_lineedit.text() and self.member_email_lineedit.text():
         row = self.member_listwidget.currentRow()
         memb = self.members[row]
         dialog = MemberEditor(memb, self.team)
         result = dialog.exec()
-        # memb.name = self.member_name_lineedit.text()
-        # memb.email = self.member_email_lineedit.text()
         self.update_ui()
-        # self.member_name_lineedit.clear()
-        # self.member_email_lineedit.clear()
 
     def delete_member_clicked(self):
         row = self.member_listwidget.currentRow()

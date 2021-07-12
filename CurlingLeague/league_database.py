@@ -84,7 +84,7 @@ class LeagueDatabase:
         last_team = ""
         tm = None
         for x in imported[1:]:
-            if x[0] is not last_team:
+            if x[0] != last_team:
                 tm = Team(self.next_oid(), x[0])
                 leag.add_team(tm)
                 last_team = tm.name
