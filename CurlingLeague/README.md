@@ -15,15 +15,11 @@ July 11, 2021
 **Source Code**
 [Github Project - CurlingLeague](https://github.com/jmayhall/CurlingLeague)
 
-##Requirements
 **File Formats**
 - CSV files must be comma deliminated and UTF-8 format
 
-**Pyton Packages**
+**Required Pyton Packages**
 - yagmail
 - PyQt5
 - pyqt5_tools
 - keyring
-
-
-###End
