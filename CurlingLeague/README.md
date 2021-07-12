@@ -18,8 +18,7 @@ July 11, 2021
 
 
 ##Requirements
-** File Formats**
-
+**File Formats**
 - CSV files must be comma deliminated and UTF-8 format
 
 **Pyton Packages**
