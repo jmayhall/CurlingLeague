@@ -176,7 +176,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'main=GUI.main_window:MainWindow',
+            'main=CurlingLeague.GUI.main_window:MainWindow',
         ],
     },
 
