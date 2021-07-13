@@ -125,7 +125,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(where='src'),  # Required
+    packages=find_packages(where='CurlingLeague'),  # Required
 
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
@@ -176,7 +176,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'main=GUI.main_window:MainWindow',
+            'main=CurlingLeague.GUI.main_window:MainWindow',
         ],
     },
 
